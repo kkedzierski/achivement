@@ -1,0 +1,30 @@
+body
+{
+    background-color: thistle;
+    color: navy;
+    font-size: 130%;
+}
+
+.myright
+{
+    text-align: right;
+}
+
+.mycenter
+{
+    text-align: center;
+}
+
+.cgold
+{
+    color: gold;
+}
+
+.inputback
+{
+    background-color: thistle;
+    color: navy;
+    font-size: 130%;
+    width: 100%;
+}
+
