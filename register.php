@@ -1,3 +1,7 @@
+<?php
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,22 +23,46 @@
                 <h1>Register</h1>
             </div>
             <div class="col-lg-12">
-                <form method="POST" action="register.php">
+                <form method="POST" action="config/register_user.php">
                     <div class="form-group">
                         <label for="name">E-mail: </label>
-                        <input type="text" class="form-control" id="name" name="name">
+                        <input type="email" class="form-control" id="name" name="email">
+                        <?php
+                            if (isset($_SESSION['error_email'])){
+                                echo '<span style="color: red">Give correct e-mail adress </span>';
+                                unset($_SESSION['error_email']);
+                            }
+                        ?>
                     </div>
                     <div class="form-group">
                         <label for="password">Password: </label>
-                        <input type="text" class="form-control" id="password" name="name">
+                        <input type="password" class="form-control" id="password" name="pass">
+                        <?php
+                            if (isset($_SESSION['error_password'])){
+                                echo '<span style="color: red"> Password must more or equal to 8 character and less or equal than 20 </span>';
+                                unset($_SESSION['error_password']);
+                            }
+                        ?>
                     </div>
                     <div class="form-group">
                         <label for="confirm_password">Confirm password: </label>
-                        <input type="text" class="form-control" id="confirm_password" name="name">
+                        <input type="password" class="form-control" id="confirm_password" name="conf_pass">
+                        <?php
+                            if (isset($_SESSION['error_confirm_password'])){
+                                echo '<span style="color: red">Password must be identical!</span>';
+                                unset($_SESSION['error_confirm_password']);
+                            }
+                        ?>
                     </div>
                     <div class="g-recaptcha" data-sitekey="6LcD5a0ZAAAAAKfWaKACi876G8k1vr9LPNWQDr_A"></div> 
+                    <?php
+                            if (isset($_SESSION['error_recaptcha'])){
+                                echo '<span style="color: red">'.$_SESSION['error_recaptcha'].'</span>';
+                                unset($_SESSION['error_recaptcha']);
+                            }
+                        ?>
                     <div class="form-group mt-2">
-                        <input type="submit" class="btn btn-success btn-block" value="Zarejestruj się">
+                        <input type="submit" class="btn btn-success btn-block btn-lg" value="Zarejestruj się">
                     </div>
                 </form>
                 <a class="btn btn-success" href="index.php">I have account - login</a>
