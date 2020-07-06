@@ -26,11 +26,19 @@
                 <form method="POST" action="config/register_user.php">
                     <div class="form-group">
                         <label for="name">E-mail: </label>
-                        <input type="email" class="form-control" id="name" name="email">
+                        <input type="email" class="form-control" id="name" name="email" 
+                        <?= isset($_SESSION['error_email']) ? "value=".$_SESSION['error_email']." " : "" ?>
+                        <?= isset($_SESSION['email_exist']) ? "value=".$_SESSION['email_exist']." " : "" ?> >
                         <?php
                             if (isset($_SESSION['error_email'])){
                                 echo '<span style="color: red">Give correct e-mail adress </span>';
                                 unset($_SESSION['error_email']);
+                            }
+                        ?>
+                        <?php
+                            if (isset($_SESSION['email_exist'])){
+                                echo '<span style="color: red">User with this e-mail exist</span>';
+                                unset($_SESSION['email_exist']);
                             }
                         ?>
                     </div>

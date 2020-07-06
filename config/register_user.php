@@ -23,7 +23,7 @@
     }
 
     // *** Confirm password validation ***
-    if ($password != $confirm_password){
+    if ($password != $confirm_password || empty($confirm_password)){
         $validation_correct = FALSE;
         $_SESSION['error_confirm_password'] = $confirm_password;
     }
@@ -39,7 +39,40 @@
         $_SESSION['error_recaptcha'] = "Confirm that you are not a bot";
     }
 
-    header('Location: ../register.php');
+    if ($validation_correct){
+
+        require_once 'db.php';
+
+        $users_query = $db->query("SELECT * FROM users");
+        $users = $users_query->fetchAll();
+        $email_exist = false;
+        foreach($users as $user){
+            if($user['email']==$email){
+                $email_exist = true;
+            }
+        }
+
+        if($email_exist){
+            $_SESSION["email_exist"] = $email;
+            header('Location: ../register.php');
+            exit();
+        }else{
+            try{
+                $pass_hash = password_hash($password, PASSWORD_DEFAULT);
+
+                $query = $db->prepare("INSERT INTO users VALUES (NULL, :email, :password)");
+                $query->bindValue(':email', $email, PDO::PARAM_STR);
+                $query->bindValue(':password', $pass_hash, PDO::PARAM_STR);
+                $query->execute();
+            }catch(PDOException $error){
+                exit('Something went wrong - user cannot be added'); 
+            }
+
+        }
+
+    }else{
+        header('Location: ../register.php');
+    }
     
 
 
