@@ -60,3 +60,4 @@ function undel(buttonNumber) {
 // 2. Pytanie o osiągniecie/ prompt  Zapis w/ var achiv
 // 3. Pytasz o date wykonania/ prompt Zapis w/ var date
 // 4. Tworzysz div/ createelement wypisujesz/ achiv i date
+// dodatkowy komentarz
