@@ -43,6 +43,8 @@
 
         require_once 'db.php';
 
+        $db = get_db();
+
         $users_query = $db->query("SELECT * FROM users");
         $users = $users_query->fetchAll();
         $email_exist = false;
@@ -67,6 +69,8 @@
             }catch(PDOException $error){
                 exit('Something went wrong - user cannot be added'); 
             }
+            header('Location: ../index.php');
+            exit();
 
         }
 
