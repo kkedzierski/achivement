@@ -8,6 +8,8 @@
         $login = filter_input(INPUT_POST, 'login');
         $password = filter_input(INPUT_POST, 'password');
 
+        $db = get_db();
+
         $user_query = $db->prepare('SELECT id, password FROM users WHERE email= :email');
         $user_query->bindValue(':email', $login, PDO::PARAM_STR);
         $user_query->execute();

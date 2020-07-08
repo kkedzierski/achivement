@@ -1,12 +1,18 @@
 <?php
 
   session_start();
+  require_once "config/db.php";
 
   if (!isset($_SESSION['is_logged'])){
     header('Location: index.php');
     exit();
+  }else{
+    $db = get_db();
+    $achivements_query = $db->prepare('SELECT * FROM achivements WHERE user= :user_id');
+    $achivements_query->bindValue(':user_id', $_SESSION['is_logged'], PDO::PARAM_INT);
+    $achivements_query->execute();
+    $achivements = $achivements_query->fetchAll();
   }
-
 
 
 ?>
@@ -74,6 +80,11 @@
         <hr> -->
 
         <div id="New">
+        <?php
+          foreach($achivements as $achivement){
+            echo $achivement['achivement']."\n";
+          }
+        ?>
         </div>
     </div>
     
@@ -94,12 +105,16 @@
           </button>
         </div>
         <div class="modal-body">
-            <div class='row mycenter mt-3 mb-3'><div class="col"><input type='text' class='inputback' id='achiv' placeholder="Co do osiągnięcia?"></div></div>
-            <div class='row mycenter mb-3'><div class="col"><input type='date' class='inputback' id='date'></div></div></div>
+        <form method="POST" action="config/achivement_operations.php">
+            <div class='row mycenter mt-3 mb-3'><div class="col"><input type='text' name="achivement" class='inputback' id='achiv' placeholder="Co do osiągnięcia?"></div></div>
+            <div class='row mycenter mb-3'><div class="col"><input type='date' name="achivement_date" class='inputback' id='date'></div></div></div>
+
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" onclick="add();">Save changes</button>
+          <button type="submit" class="btn btn-primary" onclick="add();">Save changes</button>
         </div>
+        </form>
+
       </div>
     </div>
   </div>
