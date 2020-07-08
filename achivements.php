@@ -1,3 +1,16 @@
+<?php
+
+  session_start();
+
+  if (!isset($_SESSION['is_logged'])){
+    header('Location: index.php');
+    exit();
+  }
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,8 +49,9 @@
     Iluzionista 10
     Samsara 10
     -->
-
+    
     <div class="container">
+    <button class="btn btn-lg btn-primary mt-2 float-right"><a class="text-white" href="config/logout.php">Logout</a></button>
         <div class="row mb-3"><h1>Achivements</h1></div>
 <!--         
         <div class="row align-items-center">
