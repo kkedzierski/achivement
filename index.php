@@ -1,3 +1,12 @@
+<?php
+    session_start();
+    
+    if (isset($_SESSION['is_logged'])){
+        header('Location: achivements.php');
+        exit();
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,14 +28,14 @@
                 <h1>Login</h1>
             </div>
             <div class="col-lg-12">
-                <form method="POST" action="register.php">
+                <form method="POST" action="config/login_user.php">
                     <div class="form-group">
                         <label for="name">E-mail: </label>
-                        <input type="text" class="form-control" id="name" name="name">
+                        <input type="text" class="form-control" id="name" name="login">
                     </div>
                     <div class="form-group">
                         <label for="password">Password: </label>
-                        <input type="text" class="form-control" id="password" name="name">
+                        <input type="password" class="form-control" id="password" name="password">
                     </div> 
                     <div class="form-group mt-2">
                         <input type="submit" class="btn btn-success btn-block btn-lg" value="Zaloguj się">
